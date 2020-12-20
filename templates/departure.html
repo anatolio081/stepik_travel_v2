@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    <h1 class="display-5 mt-4">Летим из {{ departures[departure_tag] }}</h1>
+    <p class="mb-4">Найдено {{ tours|length }}
+        {% if tours|length in [2,3,4] %} тура{% elif tours|length==1 %} тур{% else %} туров{% endif %}
+        , от {{ (tours.values()|min(attribute="price"))["price"] }}
+        до {{ (tours.values()|max(attribute="price"))["price"] }}
+        и от {{ (tours.values()|min(attribute="nights"))["nights"] }} ночей
+        до {{ (tours.values()|max(attribute="nights"))["nights"] }} ночей
+ </p>
+    <!-- CARDS -->
+    <div class="row mt-5">
+        {% for key, tour in tours.items() %}
+            <div class="col-4">
+                <div class="card mb-4">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <a href="/tours/{{ key }}/" class="btn btn-sm btn-primary">
+                            <img class="card-img-top embed-responsive-item" src="{{ tour.picture }}" alt=""/></a>
+                    </div>
+                    <div class="card-body">
+                        <a href="/tours/{{ key }}/" style="color: black">
+                            <h2 class="h5 card-title">{{ tour.title }}</h2>
+                        </a>
+                        <p class="card-text">{{ tour.description|truncate(60) }}</p>
+                        <div style="float: left">{{ tour.date }}, {{ tour.nights }} дней, {{ tour.price }}
+                            Р
+                        </div>
+                        <div style="float: right">{{ tour.stars }}★</div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

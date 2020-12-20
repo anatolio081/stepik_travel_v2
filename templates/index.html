@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<!-- HERO -->
+    <section class="jumbotron text-center mt-4"
+             style="background: url('https://wallpaperaccess.com/full/58330.jpg'); background-position: center center">
+        <h1 class="display-4">{{ title }}</h1>
+        <p class="lead">{{ subtitle }}</p>
+        <p class="mt-5 w-50 mx-auto">{{ description }}</p>
+    </section>
+    <!-- CARDS -->
+    <div class="row mt-5">
+        {% for key,tour in (tours.items()|sort(attribute="1.price"))[:6]%}
+            <div class="col-4">
+                <div class="card mb-4">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <a href="/tours/{{ key }}/" class="btn btn-sm btn-primary">
+                            <img class="card-img-top embed-responsive-item" src="{{ tour.picture }}" alt=""/></a>
+                    </div>
+                    <div class="card-body">
+                        <a href="/tours/{{ key }}/" style="color: black">
+                            <h2 class="h5 card-title">{{ tour.title }}</h2>
+                        </a>
+                        <p class="card-text">{{ tour.description|truncate(60) }}</p>
+                        <div style="float: left">{{ tour.date }}, {{ tour.nights }} дней, {{ tour.price }}
+                            Р
+                        </div>
+                        <div style="float: right">{{ tour.stars }}★</div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
