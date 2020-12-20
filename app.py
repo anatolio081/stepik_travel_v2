@@ -37,4 +37,5 @@ def render_tour(id):
                            departures=departures)
 
 
-app.run()
+if __name__ == '__main__':
+    app.run()
