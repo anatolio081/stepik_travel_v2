@@ -22,5 +22,5 @@ pip install -r requirements.txt
 ```
 - Запустить проект:
 ```sh
-python3 app.py 
+gunicorn app:app 
 ```
